@@ -1,0 +1,27 @@
+{
+  "name": "200615fintech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Variables.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skymill2000/200615fintech.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skymill2000/200615fintech/issues"
+  },
+  "homepage": "https://github.com/skymill2000/200615fintech#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "jimp": "^0.13.0",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2",
+    "xml2js": "^0.4.23"
+  }
+}

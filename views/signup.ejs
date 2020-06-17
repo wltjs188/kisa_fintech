@@ -134,7 +134,7 @@
                         </div>
                         <div class="form-row no-padding">
 							<i class="fa fa-lock"></i>
-							<input type="text" id="userSeqno" name="aaa" class="form-element" placeholder="userseqno">
+							<input type="text" id="userSeqNo" name="aaa" class="form-element" placeholder="userseqno">
 						</div>
 					</div>
 
@@ -147,7 +147,7 @@
                     <div class="form-divider"></div>
 
                     <div class="form-row">
-						<button type="button" id="signBtn" class="button circle block orange">가입하기</button>
+						<button type="button" id="signupBtn" class="button circle block orange">가입하기</button>
 					</div>
 
 					<div class="form-row txt-center mt-15">
@@ -179,8 +179,7 @@
         $("#authBtn").click(function(){
             var tmpWindow = window.open('about:black');
             tmpWindow.location ="https://testapi.openbanking.or.kr/oauth/2.0/authorize?response_type=code&client_id=w8lMFnJ9cvTfdKRB3yO200bgVGtxumpmC0pMb20S&redirect_uri=http://localhost:3000/authResult&scope=login inquiry transfer&state=12345678901234567890123456789012&auth_type=0";
-        })
-
+        });
     </script>
 
 	

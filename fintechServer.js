@@ -2,6 +2,16 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const request = require('request');
+var mysql      = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '125400',
+  database : 'fintech'
+});
+ 
+connection.connect();
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -38,8 +48,28 @@ app.get('/authResult',function(req,res){
     }
     request(option, function (error, response, body) {
         console.log(body);
-        res.json(body);
+        var requestResultJSON = JSON.parse(body);
+        console.log(requestResultJSON);
+        res.render('resultChild',{data : requestResultJSON});
     });
 })
 
+app.post('/signup', function(req, res){
+    var userName = req.body.userName;
+    var userEmail = req.body.userEmail;
+    var userPassword = req.body.userPassword;
+    var userAccessToken = req.body.userAccessToken;
+    var userRefreshToken = req.body.userRefreshToken;
+    var userSeqNo = req.body.userSeqNo;
+    console.log(userAccessToken, userRefreshToken, userSeqNo);
+    var sql ="INSERT INTO fintech.user (name, email, password, accesstoken, refreshtoken, userseqno) VALUES (?, ?, ?, ?, ?, ?)";
+
+    connection.query(sql,[userName,userEmail,userPassword,userAccessToken,userRefreshToken,userSeqNo], function (error, results, fields) {
+        if (error) throw error;
+        res.json("가입완료");
+      });
+       
+      connection.end();
+
+})
 app.listen(3000)

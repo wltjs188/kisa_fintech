@@ -180,6 +180,32 @@
             var tmpWindow = window.open('about:black');
             tmpWindow.location ="https://testapi.openbanking.or.kr/oauth/2.0/authorize?response_type=code&client_id=w8lMFnJ9cvTfdKRB3yO200bgVGtxumpmC0pMb20S&redirect_uri=http://localhost:3000/authResult&scope=login inquiry transfer&state=12345678901234567890123456789012&auth_type=0";
         });
+        $("#signupBtn").click(function(){
+            var userName = $("#userName").val();
+            var userEmail = $("#userEmail").val();
+            var userPassword = $("#userPassword").val();
+            var userAccessToken = $("#userAccessToken").val();
+            var userRefreshToken = $("#userRefreshToken").val();
+            var userSeqNo = $("#userSeqNo").val();
+
+            $.ajax({
+            url:'/signup',
+            type : 'POST',
+            data : {
+                userName : userName,
+                userEmail : userEmail,
+                userPassword : userPassword,
+                userAccessToken : userAccessToken,
+                userRefreshToken : userRefreshToken,
+                userSeqNo : userSeqNo
+            },
+            success:function(data){
+                alert(data);
+            }
+        })
+
+        })
+
     </script>
 
 	

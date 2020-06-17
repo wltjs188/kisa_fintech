@@ -25,9 +25,9 @@ app.get('/design', function (req, res) {
     res.render('wallet');
 })
 
-app.get('/signup', function(req,res){
-    res.render('signup');
-})
+
+
+//인증받기
 app.get('/authResult',function(req,res){
     console.log('authResult');
     console.log(req.query);
@@ -54,6 +54,10 @@ app.get('/authResult',function(req,res){
     });
 })
 
+//가입하기
+app.get('/signup', function(req,res){
+    res.render('signup');
+})
 app.post('/signup', function(req, res){
     var userName = req.body.userName;
     var userEmail = req.body.userEmail;
@@ -71,5 +75,13 @@ app.post('/signup', function(req, res){
        
       connection.end();
 
+})
+
+//로그인
+app.get('/login',function(req,res){
+    res.render('login');
+})
+app.post('/login',function(req,res){
+    console.log(req.body.userEmail, req.body.userPassword);
 })
 app.listen(3000)

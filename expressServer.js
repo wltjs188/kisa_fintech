@@ -6,6 +6,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({extends:false}));
+
+app.use(express.static(path.join(_dirname,'public')));
  
 app.get('/', function (req, res) {
     res.send('Hello World');

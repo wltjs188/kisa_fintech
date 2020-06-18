@@ -196,4 +196,47 @@ app.post('/balance',auth,function(req,res){
     
 })
 
+//거래내역조회
+app.post('/transactionlist',auth,function(req,res){
+    
+    var finusenum=req.body.fin_use_num;
+    
+    var countnum = Math.floor(Math.random() * 1000000000) + 1;
+    var transId="T991637180U"+countnum;
+    
+    //db조회
+    //=> 거래내역조회 request 요청 코딩 (완료)
+    var userId = req.decoded.userId;//decoded사용은 auth추가 필요
+    var sql = "SELECT * FROM user WHERE id = ?";
+    
+    connection.query(sql,[userId], function(err, result){
+        if(err) throw err;
+    var accesstoken = result[0].accesstoken;
+    var userseqno = result[0].userseqno;
+  
+    var option = {
+        method : "GET",
+        url : "https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num",
+        headers : {
+            'Authorization' : 'Bearer ' + accesstoken
+        },
+        qs : {
+            bank_tran_id:transId,
+            fintech_use_num:finusenum,
+            inquiry_type:'A',
+            inquiry_base:'D',
+            from_date: "20200404",
+            to_date:"20200405",
+            sort_order:"D",
+            tran_dtime:'20200618095001'
+        }
+    }
+    request(option, function (error, response, body) {
+        //console.log(body);
+        var requestResultJSON = JSON.parse(body);
+        res.json(requestResultJSON)
+    });
+})
+})
+
 app.listen(3000)

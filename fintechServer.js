@@ -239,4 +239,8 @@ app.post('/transactionlist',auth,function(req,res){
 })
 })
 
+app.get('/qrcode',function(req,res){
+    res.render('qrcode');
+})
+
 app.listen(3000)

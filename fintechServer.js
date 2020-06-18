@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const request = require('request');
+const jwt = require('jsonwebtoken');
 var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
@@ -73,15 +74,51 @@ app.post('/signup', function(req, res){
         res.json("가입완료");
       });
        
-      connection.end();
+      
 
 })
 
-//로그인
+//로그인 JWT vs session
 app.get('/login',function(req,res){
     res.render('login');
 })
 app.post('/login',function(req,res){
     console.log(req.body.userEmail, req.body.userPassword);
+    var userEmail = req.body.userEmail;
+    var userPassword = req.body.userPassword;
+
+    var sql ="SELECT * FROM fintech.user WHERE email =  ?"; //email 확인
+
+    connection.query(sql,[userEmail], function (error, results, fields) {
+        if (error) throw error;
+        if(results.length == 0){
+            res.json('사용자가 없습니다.');
+        }
+        else{
+            var dbPassword = results[0].password;
+            console.log(dbPassword);
+            if(dbPassword == userPassword){
+                console.log('login 성공!');
+                //JWT 발급
+                jwt.sign(
+                    { 
+                        foo: 'bar' 
+                    }, 
+                    'fintechService!1234#', 
+                    { 
+                        expiresIn : '10d',
+                        issuer : 'fintech.admin',
+                        subject : 'user.login.info'
+                    }, 
+                    function(err, token) {
+                        console.log('우리가 발급한 토큰 : ',token);
+                    }  
+                );
+            }
+            else if(dbPassword != userPassword){
+                res.json('패스워드가 다릅니다.');
+            }
+        }
+      });
 })
 app.listen(3000)

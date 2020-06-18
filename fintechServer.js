@@ -101,9 +101,10 @@ app.post('/login',function(req,res){
                 console.log('login 성공!');
                 //JWT 발급
                 jwt.sign(
-                    { 
-                        foo: 'bar' 
-                    }, 
+                    { //fayload
+                        userId : results[0].id,
+                        userName : results[0].name
+                    },
                     'fintechService!1234#', 
                     { 
                         expiresIn : '10d',
